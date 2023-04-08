@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/topmenu.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="top-menu">
+        <img src="{% static 'img/logo.png' %}" alt="news web-site logo">
+        <div class="middle-wraper">
+            <div><a class="menu-link{% if request.resolver_match.view_name == 'index' %}-active{% endif %}" href="{% url 'index' %}">News</a></div>
+            <div><a class="menu-link{% if request.resolver_match.view_name == 'searchingnews' %}-active{% endif %}" href="{% url 'searchingnews' %}">Searching</a></div>
+            <div><a class="menu-link{% if request.resolver_match.view_name == 'createarticle' %}-active{% endif %}" href="{% url 'createarticle' %}">Create</a></div>
+
+            {% if request.user.is_authenticated %}
+            <div><a class="menu-link" href="{% url 'userpage' %}">{{ request.user.username }}</a></div>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <div><a class="menu-link" href="{% url 'logout' %}">Logout</a></div>
+            {% else %}
+                <div><a class="menu-link" href="{% url 'registration' %}">Sign up</a></div>
+                <div><a class="menu-link" href="{% url 'login' %}">Log in</a></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

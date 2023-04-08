@@ -1,0 +1,7 @@
+{% extends 'newsportal/main.html' %}
+
+{% block content %}
+    {% for el in news %}
+        {% include 'newsportal/elements/articlecard.html' with article=el %}
+    {% endfor %}
+{% endblock %}
